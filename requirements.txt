@@ -1,0 +1,4 @@
+langchain
+fastapi
+pandas
+snowflake-connector-python
