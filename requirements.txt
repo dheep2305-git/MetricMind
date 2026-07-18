@@ -1,4 +1,6 @@
-langchain
 fastapi
+uvicorn
 pandas
+langchain
 snowflake-connector-python
+python-dotenv
