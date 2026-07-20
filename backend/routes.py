@@ -1,18 +1,17 @@
 from fastapi import APIRouter
+from data_loader import load_dataset
 
 router = APIRouter()
 
-@router.get("/health")
-def health_check():
-    return {
-        "status": "Healthy",
-        "message": "Backend service is active."
-    }
+@router.get("/")
+def home():
+    return {"message": "MetricMind Backend Running"}
 
-@router.get("/about")
-def about():
+@router.get("/dataset-info")
+def dataset_info():
+    data = load_dataset()
+
     return {
-        "project": "MetricMind",
-        "description": "AI-powered Business Intelligence Platform",
-        "version": "1.0.0"
+        "rows": len(data),
+        "columns": list(data.columns)
     }
