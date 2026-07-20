@@ -28,3 +28,8 @@ The backend acts as the central component that connects the frontend, LLM, Cube.
 - Connect LLM for natural language processing.
 - Build business analytics APIs.
 - Add authentication and authorization.
+
+## Recent Updates(commit 4)
+- Added utility functions.
+- Improved dataset loading with error handling.
+- Added dataset preview API endpoint.
