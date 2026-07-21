@@ -1,3 +1,4 @@
+import pandas as pd
 from fastapi import APIRouter
 from data_loader import load_dataset
 
@@ -91,5 +92,52 @@ def sales_by_category():
         return {"error": "Dataset not found"}
 
     result = df.groupby("Category")["Sales"].sum()
+
+    return result.to_dict()
+
+
+@router.get("/monthly-sales")
+def monthly_sales():
+    df = load_dataset()
+
+    if df is None:
+        return {"error": "Dataset not found"}
+
+    df["Order Date"] = pd.to_datetime(df["Order Date"])
+
+    result = (
+        df.groupby(df["Order Date"].dt.to_period("M"))["Sales"]
+        .sum()
+        .astype(float)
+    )
+
+    return {str(k): v for k, v in result.items()}
+
+
+@router.get("/top-products")
+def top_products():
+    df = load_dataset()
+
+    if df is None:
+        return {"error": "Dataset not found"}
+
+    result = (
+        df.groupby("Product Name")["Sales"]
+        .sum()
+        .sort_values(ascending=False)
+        .head(10)
+    )
+
+    return result.to_dict()
+
+
+@router.get("/profit-by-category")
+def profit_by_category():
+    df = load_dataset()
+
+    if df is None:
+        return {"error": "Dataset not found"}
+
+    result = df.groupby("Category")["Profit"].sum()
 
     return result.to_dict()
