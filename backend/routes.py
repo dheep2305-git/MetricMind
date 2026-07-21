@@ -3,9 +3,37 @@ from data_loader import load_dataset
 
 router = APIRouter()
 
+
 @router.get("/")
 def home():
-    return {"message": "MetricMind API Running"}
+    return {
+        "message": "Welcome to MetricMind API"
+    }
+
+
+@router.get("/dataset-info")
+def dataset_info():
+    df = load_dataset()
+
+    if df is None:
+        return {"error": "Dataset not found"}
+
+    return {
+        "rows": len(df),
+        "columns": len(df.columns),
+        "column_names": list(df.columns)
+    }
+
+
+@router.get("/dataset-preview")
+def dataset_preview():
+    df = load_dataset()
+
+    if df is None:
+        return {"error": "Dataset not found"}
+
+    return df.head().to_dict(orient="records")
+
 
 @router.get("/total-sales")
 def total_sales():
@@ -41,3 +69,27 @@ def total_orders():
     return {
         "total_orders": int(df["Order ID"].nunique())
     }
+
+
+@router.get("/sales-by-region")
+def sales_by_region():
+    df = load_dataset()
+
+    if df is None:
+        return {"error": "Dataset not found"}
+
+    result = df.groupby("Region")["Sales"].sum()
+
+    return result.to_dict()
+
+
+@router.get("/sales-by-category")
+def sales_by_category():
+    df = load_dataset()
+
+    if df is None:
+        return {"error": "Dataset not found"}
+
+    result = df.groupby("Category")["Sales"].sum()
+
+    return result.to_dict()

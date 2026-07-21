@@ -1,8 +1,11 @@
 import pandas as pd
-from config import DATASET_PATH
+
+DATASET_PATH = "../data/raw/Superstore.csv"
 
 def load_dataset():
     try:
-        return pd.read_csv(DATASET_PATH)
+        df = pd.read_csv(DATASET_PATH, encoding="latin-1")
+        return df
     except Exception as e:
+        print("Error loading dataset:", e)
         return None

@@ -68,3 +68,11 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 - Verified backend functionality using Swagger UI.
 - Tested the Home, Dataset Info, and Dataset Preview APIs.
 - Prepared the backend for business analytics endpoints.
+
+### Day 9
+- Added business analytics API endpoints using FastAPI.
+- Implemented total sales, total profit, and total orders calculations.
+- Developed sales by region and sales by category APIs.
+- Integrated dataset loading using Pandas.
+- Tested all APIs using Swagger UI.
+- Fixed backend routing and dataset loading issues.
