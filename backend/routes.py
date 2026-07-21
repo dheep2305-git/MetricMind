@@ -1,30 +1,43 @@
 from fastapi import APIRouter
 from data_loader import load_dataset
-from utils import get_dataset_preview
 
 router = APIRouter()
 
 @router.get("/")
 def home():
-    return {"message": "MetricMind Backend Running"}
+    return {"message": "MetricMind API Running"}
 
-@router.get("/dataset-info")
-def dataset_info():
-    data = load_dataset()
+@router.get("/total-sales")
+def total_sales():
+    df = load_dataset()
 
-    if data is None:
+    if df is None:
         return {"error": "Dataset not found"}
 
     return {
-        "rows": len(data),
-        "columns": list(data.columns)
+        "total_sales": float(df["Sales"].sum())
     }
 
-@router.get("/dataset-preview")
-def dataset_preview():
-    data = load_dataset()
 
-    if data is None:
+@router.get("/total-profit")
+def total_profit():
+    df = load_dataset()
+
+    if df is None:
         return {"error": "Dataset not found"}
 
-    return get_dataset_preview(data)
+    return {
+        "total_profit": float(df["Profit"].sum())
+    }
+
+
+@router.get("/total-orders")
+def total_orders():
+    df = load_dataset()
+
+    if df is None:
+        return {"error": "Dataset not found"}
+
+    return {
+        "total_orders": int(df["Order ID"].nunique())
+    }
