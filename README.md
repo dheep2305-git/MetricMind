@@ -83,3 +83,9 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 - Added Profit by Category API.
 - Prepared backend data for dashboard visualizations.
 - Tested all APIs successfully using Swagger UI.
+
+### Day 11
+- Created frontend project structure.
+- Designed the initial dashboard layout.
+- Added HTML, CSS, and JavaScript files.
+- Prepared frontend for backend API integration.
