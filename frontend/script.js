@@ -20,3 +20,48 @@ async function loadDashboard() {
 }
 
 loadDashboard();
+async function loadTopProducts(){
+
+    let response = await fetch("http://127.0.0.1:8000/top-products");
+
+    let data = await response.json();
+
+    let table = document.querySelector("#productTable tbody");
+
+    table.innerHTML = "";
+
+    for(let product in data){
+
+        table.innerHTML += `
+        <tr>
+            <td>${product}</td>
+            <td>₹ ${data[product].toFixed(2)}</td>
+        </tr>
+        `;
+    }
+
+}
+
+loadTopProducts();
+async function loadTopProducts() {
+
+    let response = await fetch("http://127.0.0.1:8000/top-products");
+
+    let data = await response.json();
+
+    let table = document.querySelector("#productTable tbody");
+
+    table.innerHTML = "";
+
+    for (let product in data) {
+
+        table.innerHTML += `
+        <tr>
+            <td>${product}</td>
+            <td>₹ ${data[product].toFixed(2)}</td>
+        </tr>
+        `;
+    }
+}
+
+loadTopProducts();
