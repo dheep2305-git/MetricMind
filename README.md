@@ -89,3 +89,11 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 - Designed the initial dashboard layout.
 - Added HTML, CSS, and JavaScript files.
 - Prepared frontend for backend API integration.
+
+## Day 12
+- Connected the frontend dashboard with the FastAPI backend.
+- Used JavaScript `fetch()` to retrieve live data from backend APIs.
+- Displayed Total Sales on the dashboard.
+- Displayed Total Profit on the dashboard.
+- Displayed Total Orders on the dashboard.
+- Verified communication between the frontend and backend.

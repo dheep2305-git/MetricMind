@@ -1,6 +1,48 @@
-Background color
-Card styling
-Fonts
-Sidebar
-Header
-Responsive layout
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f5f7fa;
+}
+
+header{
+    background:#1e3a8a;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+.cards{
+    display:flex;
+    justify-content:space-around;
+    margin:30px;
+}
+
+.card{
+    width:250px;
+    background:white;
+    border-radius:10px;
+    box-shadow:0px 0px 10px lightgray;
+    text-align:center;
+    padding:20px;
+}
+
+.card h2{
+    color:#1e3a8a;
+}
+
+.card p{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.section{
+    margin:30px;
+}
+
+.box{
+    background:white;
+    border-radius:10px;
+    padding:40px;
+    box-shadow:0px 0px 10px lightgray;
+}
