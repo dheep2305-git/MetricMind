@@ -20,29 +20,7 @@ async function loadDashboard() {
 }
 
 loadDashboard();
-async function loadTopProducts(){
 
-    let response = await fetch("http://127.0.0.1:8000/top-products");
-
-    let data = await response.json();
-
-    let table = document.querySelector("#productTable tbody");
-
-    table.innerHTML = "";
-
-    for(let product in data){
-
-        table.innerHTML += `
-        <tr>
-            <td>${product}</td>
-            <td>₹ ${data[product].toFixed(2)}</td>
-        </tr>
-        `;
-    }
-
-}
-
-loadTopProducts();
 async function loadTopProducts() {
 
     let response = await fetch("http://127.0.0.1:8000/top-products");
@@ -65,3 +43,37 @@ async function loadTopProducts() {
 }
 
 loadTopProducts();
+
+async function loadRegionChart() {
+
+    let response = await fetch("http://127.0.0.1:8000/sales-by-region");
+
+    let data = await response.json();
+
+    let labels = Object.keys(data);
+    let values = Object.values(data);
+
+    let ctx = document.getElementById("salesChart").getContext("2d");
+
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Sales",
+                data: values
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true
+                }
+            }
+        }
+    });
+
+}
+
+loadRegionChart();

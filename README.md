@@ -103,3 +103,15 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 - Displayed Total Sales, Total Profit, and Total Orders dynamically.
 - Fixed CORS issue between frontend and backend.
 - Started building the Top Products section.
+
+# Frontend - Day 14
+### Dashboard Cards
+- Display Total Sales
+- Display Total Profit
+- Display Total Orders
+- Data fetched from FastAPI backend
+
+### Sales by Region Chart
+- Added Chart.js library
+- Created a bar chart for regional sales
+- Chart data fetched dynamically from backend API
