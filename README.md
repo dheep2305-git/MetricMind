@@ -138,3 +138,11 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 ### Dashboard Enhancement
 - Improved dashboard interactivity
 - Enabled dynamic chart updates without page reload
+
+# Frontend - Day 17
+
+### Profit by Category
+- Added Profit by Category pie chart
+- Displayed category-wise profit using Chart.js
+- Data fetched dynamically from FastAPI backend
+- Improved dashboard analytics with visual insights

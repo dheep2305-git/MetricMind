@@ -98,3 +98,40 @@ document.getElementById("regionFilter").addEventListener("change", function () {
     loadRegionChart(selectedRegion);
 
 });
+async function loadProfitChart() {
+
+    let response = await fetch("http://127.0.0.1:8000/profit-by-category");
+
+    let data = await response.json();
+
+    let labels = Object.keys(data);
+    let values = Object.values(data);
+
+    let ctx = document.getElementById("profitChart").getContext("2d");
+
+    new Chart(ctx, {
+        type: "pie",
+
+        data: {
+            labels: labels,
+
+            datasets: [{
+                label: "Profit",
+                data: values,
+                backgroundColor: [
+                    "#4CAF50",
+                    "#2196F3",
+                    "#FFC107"
+                ]
+            }]
+        },
+
+        options: {
+            responsive: true
+        }
+
+    });
+
+}
+
+loadProfitChart();
