@@ -1,5 +1,5 @@
 import pandas as pd
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 from data_loader import load_dataset
 
 router = APIRouter()
@@ -73,11 +73,14 @@ def total_orders():
 
 
 @router.get("/sales-by-region")
-def sales_by_region():
+def sales_by_region(region: str = Query("All")):
     df = load_dataset()
 
     if df is None:
         return {"error": "Dataset not found"}
+
+    if region != "All":
+        df = df[df["Region"] == region]
 
     result = df.groupby("Region")["Sales"].sum()
 

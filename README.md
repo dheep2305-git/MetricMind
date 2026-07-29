@@ -127,3 +127,14 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 - Styled the Region filter using CSS
 - Enhanced dashboard layout and user experience
 - Prepared frontend for backend filter integration
+
+# Frontend - Day 16
+
+### Region Filter
+- Connected Region dropdown with FastAPI backend
+- Updated Sales by Region chart dynamically
+- Displayed region-wise sales based on user selection
+
+### Dashboard Enhancement
+- Improved dashboard interactivity
+- Enabled dynamic chart updates without page reload

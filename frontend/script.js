@@ -44,24 +44,36 @@ async function loadTopProducts() {
 
 loadTopProducts();
 
-async function loadRegionChart() {
+async function loadRegionChart(region = "All") {
 
-    let response = await fetch("http://127.0.0.1:8000/sales-by-region");
+    let response = await fetch(`http://127.0.0.1:8000/sales-by-region?region=${region}`);
 
     let data = await response.json();
 
     let labels = Object.keys(data);
     let values = Object.values(data);
 
-    let ctx = document.getElementById("salesChart").getContext("2d");
+    let canvas = document.getElementById("salesChart");
 
-    new Chart(ctx, {
+    if (window.salesChart instanceof Chart) {
+        window.salesChart.destroy();
+    }
+
+    let ctx = canvas.getContext("2d");
+
+    window.salesChart = new Chart(ctx, {
         type: "bar",
         data: {
             labels: labels,
             datasets: [{
                 label: "Sales",
-                data: values
+                data: values,
+                backgroundColor: [
+                    "#4CAF50",
+                    "#2196F3",
+                    "#FFC107",
+                    "#F44336"
+                ]
             }]
         },
         options: {
@@ -77,3 +89,12 @@ async function loadRegionChart() {
 }
 
 loadRegionChart();
+
+// Region Filter
+document.getElementById("regionFilter").addEventListener("change", function () {
+
+    let selectedRegion = this.value;
+
+    loadRegionChart(selectedRegion);
+
+});
