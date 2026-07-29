@@ -115,3 +115,15 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 - Added Chart.js library
 - Created a bar chart for regional sales
 - Chart data fetched dynamically from backend API
+
+# Frontend - Day 15
+
+### Region Filter
+- Added Region dropdown to the dashboard
+- Improved dashboard interactivity
+- Prepared frontend for region-wise filtering
+
+### Dashboard Enhancement
+- Styled the Region filter using CSS
+- Enhanced dashboard layout and user experience
+- Prepared frontend for backend filter integration

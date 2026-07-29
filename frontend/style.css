@@ -84,3 +84,21 @@ th{
 tr:nth-child(even){
     background:#f2f2f2;
 }
+.filter-container {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.filter-container label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.filter-container select {
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
