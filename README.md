@@ -146,3 +146,11 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 - Displayed category-wise profit using Chart.js
 - Data fetched dynamically from FastAPI backend
 - Improved dashboard analytics with visual insights
+
+# Frontend - Day 18
+
+### Monthly Sales Trend
+- Added Monthly Sales Trend line chart
+- Displayed month-wise sales using Chart.js
+- Data fetched dynamically from FastAPI backend
+- Improved dashboard with sales trend visualization

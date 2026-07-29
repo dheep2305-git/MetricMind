@@ -135,3 +135,49 @@ async function loadProfitChart() {
 }
 
 loadProfitChart();
+async function loadMonthlySalesChart() {
+
+    let response = await fetch("http://127.0.0.1:8000/monthly-sales");
+
+    let data = await response.json();
+
+    let labels = Object.keys(data);
+    let values = Object.values(data);
+
+    let ctx = document.getElementById("monthlySalesChart").getContext("2d");
+
+    new Chart(ctx, {
+        type: "line",
+
+        data: {
+            labels: labels,
+
+            datasets: [{
+                label: "Monthly Sales",
+                data: values,
+                borderColor: "#2196F3",
+                backgroundColor: "rgba(33,150,243,0.2)",
+                fill: true,
+                tension: 0.4
+            }]
+        },
+
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+
+    });
+
+}
+
+loadMonthlySalesChart();
