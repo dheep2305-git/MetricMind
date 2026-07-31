@@ -32,7 +32,6 @@ async function loadTopProducts() {
     table.innerHTML = "";
 
     for (let product in data) {
-
         table.innerHTML += `
         <tr>
             <td>${product}</td>
@@ -85,19 +84,17 @@ async function loadRegionChart(region = "All") {
             }
         }
     });
-
 }
 
 loadRegionChart();
 
-// Region Filter
 document.getElementById("regionFilter").addEventListener("change", function () {
 
     let selectedRegion = this.value;
-
     loadRegionChart(selectedRegion);
 
 });
+
 async function loadProfitChart() {
 
     let response = await fetch("http://127.0.0.1:8000/profit-by-category");
@@ -111,10 +108,8 @@ async function loadProfitChart() {
 
     new Chart(ctx, {
         type: "pie",
-
         data: {
             labels: labels,
-
             datasets: [{
                 label: "Profit",
                 data: values,
@@ -125,16 +120,14 @@ async function loadProfitChart() {
                 ]
             }]
         },
-
         options: {
             responsive: true
         }
-
     });
-
 }
 
 loadProfitChart();
+
 async function loadMonthlySalesChart() {
 
     let response = await fetch("http://127.0.0.1:8000/monthly-sales");
@@ -148,10 +141,8 @@ async function loadMonthlySalesChart() {
 
     new Chart(ctx, {
         type: "line",
-
         data: {
             labels: labels,
-
             datasets: [{
                 label: "Monthly Sales",
                 data: values,
@@ -161,7 +152,6 @@ async function loadMonthlySalesChart() {
                 tension: 0.4
             }]
         },
-
         options: {
             responsive: true,
             plugins: {
@@ -175,9 +165,7 @@ async function loadMonthlySalesChart() {
                 }
             }
         }
-
     });
-
 }
 
 loadMonthlySalesChart();

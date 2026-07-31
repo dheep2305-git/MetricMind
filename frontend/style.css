@@ -122,3 +122,12 @@ tr:hover{
 canvas{
     max-width:100%;
 }
+/* Footer */
+footer{
+    margin-top:40px;
+    background:#1e3a8a;
+    color:white;
+    text-align:center;
+    padding:15px;
+    font-size:15px;
+}
