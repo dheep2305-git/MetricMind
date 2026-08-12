@@ -172,3 +172,14 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 - Integrated all backend APIs
 - Improved dashboard UI and responsiveness
 - Final project ready for review
+
+# Frontend - Day 21
+
+### Login Page
+
+- Created MetricMind login page
+- Added username/email input field
+- Added password input field
+- Added login button
+- Added login page styling
+- Connected login page to dashboard navigation

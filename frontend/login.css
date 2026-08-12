@@ -1,0 +1,212 @@
+/* ==========================================
+   METRICMIND LOGIN PAGE
+========================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #eef2f7;
+}
+
+
+/* ==========================================
+   LOGIN CONTAINER
+========================================== */
+
+.login-container {
+
+    width: 480px;
+
+    max-width: 90%;
+
+    padding: 45px;
+
+    background: white;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.12);
+
+    text-align: center;
+}
+
+
+/* ==========================================
+   TITLE
+========================================== */
+
+.login-container h1 {
+
+    margin: 0 0 15px;
+
+    color: #1f3f91;
+
+    font-size: 40px;
+
+}
+
+
+/* ==========================================
+   DESCRIPTION
+========================================== */
+
+.login-container p {
+
+    margin: 0 0 35px;
+
+    color: #555;
+
+    font-size: 18px;
+
+    line-height: 1.4;
+
+}
+
+
+/* ==========================================
+   INPUT FIELDS
+========================================== */
+
+.login-container input {
+
+    display: block;
+
+    width: 100%;
+
+    padding: 15px;
+
+    margin-bottom: 18px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 7px;
+
+    font-size: 16px;
+
+    outline: none;
+
+}
+
+
+.login-container input:focus {
+
+    border-color: #1f3f91;
+
+    box-shadow:
+        0 0 0 2px rgba(31, 63, 145, 0.12);
+
+}
+
+
+/* ==========================================
+   LOGIN BUTTON
+========================================== */
+
+.login-container button {
+
+    width: 100%;
+
+    padding: 15px;
+
+    margin-top: 5px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #1f3f91;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.1s ease;
+
+}
+
+
+.login-container button:hover {
+
+    background: #173274;
+
+}
+
+
+.login-container button:active {
+
+    transform: scale(0.98);
+
+}
+
+
+/* ==========================================
+   ERROR MESSAGE
+========================================== */
+
+#errorMessage {
+
+    min-height: 25px;
+
+    margin-top: 18px;
+
+    color: #dc3545;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+    .login-container {
+
+        padding: 30px;
+
+    }
+
+
+    .login-container h1 {
+
+        font-size: 32px;
+
+    }
+
+
+    .login-container p {
+
+        font-size: 16px;
+
+    }
+
+}

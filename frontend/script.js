@@ -1,171 +1,563 @@
+// ==========================================
+// API BASE URL
+// ==========================================
+
+const API_URL = "http://127.0.0.1:8000";
+
+
+// ==========================================
+// LOAD DASHBOARD CARDS
+// ==========================================
+
 async function loadDashboard() {
 
-    // Total Sales
-    let salesResponse = await fetch("http://127.0.0.1:8000/total-sales");
-    let salesData = await salesResponse.json();
-    document.getElementById("sales").innerHTML =
-        "₹ " + salesData.total_sales.toFixed(2);
+    try {
 
-    // Total Profit
-    let profitResponse = await fetch("http://127.0.0.1:8000/total-profit");
-    let profitData = await profitResponse.json();
-    document.getElementById("profit").innerHTML =
-        "₹ " + profitData.total_profit.toFixed(2);
+        // --------------------------------------
+        // Total Sales
+        // --------------------------------------
 
-    // Total Orders
-    let ordersResponse = await fetch("http://127.0.0.1:8000/total-orders");
-    let ordersData = await ordersResponse.json();
-    document.getElementById("orders").innerHTML =
-        ordersData.total_orders;
+        const salesResponse =
+            await fetch(`${API_URL}/total-sales`);
+
+        const salesData =
+            await salesResponse.json();
+
+        if (salesData.total_sales !== undefined) {
+
+            document.getElementById("sales").innerHTML =
+                "₹ " + Number(
+                    salesData.total_sales
+                ).toFixed(2);
+
+        }
+
+
+        // --------------------------------------
+        // Total Profit
+        // --------------------------------------
+
+        const profitResponse =
+            await fetch(`${API_URL}/total-profit`);
+
+        const profitData =
+            await profitResponse.json();
+
+        if (profitData.total_profit !== undefined) {
+
+            document.getElementById("profit").innerHTML =
+                "₹ " + Number(
+                    profitData.total_profit
+                ).toFixed(2);
+
+        }
+
+
+        // --------------------------------------
+        // Total Orders
+        // --------------------------------------
+
+        const ordersResponse =
+            await fetch(`${API_URL}/total-orders`);
+
+        const ordersData =
+            await ordersResponse.json();
+
+        if (ordersData.total_orders !== undefined) {
+
+            document.getElementById("orders").innerHTML =
+                ordersData.total_orders;
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Dashboard error:",
+            error
+        );
+
+    }
+
 }
 
-loadDashboard();
+
+// ==========================================
+// TOP PRODUCTS
+// ==========================================
 
 async function loadTopProducts() {
 
-    let response = await fetch("http://127.0.0.1:8000/top-products");
+    try {
 
-    let data = await response.json();
+        const response =
+            await fetch(
+                `${API_URL}/top-products`
+            );
 
-    let table = document.querySelector("#productTable tbody");
+        const data =
+            await response.json();
 
-    table.innerHTML = "";
+        const table =
+            document.querySelector(
+                "#productTable tbody"
+            );
 
-    for (let product in data) {
-        table.innerHTML += `
-        <tr>
-            <td>${product}</td>
-            <td>₹ ${data[product].toFixed(2)}</td>
-        </tr>
-        `;
-    }
-}
+        table.innerHTML = "";
 
-loadTopProducts();
+        for (const product in data) {
 
-async function loadRegionChart(region = "All") {
+            table.innerHTML += `
+                <tr>
+                    <td>${product}</td>
+                    <td>
+                        ₹ ${Number(
+                            data[product]
+                        ).toFixed(2)}
+                    </td>
+                </tr>
+            `;
 
-    let response = await fetch(`http://127.0.0.1:8000/sales-by-region?region=${region}`);
-
-    let data = await response.json();
-
-    let labels = Object.keys(data);
-    let values = Object.values(data);
-
-    let canvas = document.getElementById("salesChart");
-
-    if (window.salesChart instanceof Chart) {
-        window.salesChart.destroy();
-    }
-
-    let ctx = canvas.getContext("2d");
-
-    window.salesChart = new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "Sales",
-                data: values,
-                backgroundColor: [
-                    "#4CAF50",
-                    "#2196F3",
-                    "#FFC107",
-                    "#F44336"
-                ]
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: true
-                }
-            }
         }
-    });
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Top products error:",
+            error
+        );
+
+    }
+
 }
 
-loadRegionChart();
 
-document.getElementById("regionFilter").addEventListener("change", function () {
+// ==========================================
+// SALES BY REGION
+// ==========================================
 
-    let selectedRegion = this.value;
-    loadRegionChart(selectedRegion);
+async function loadRegionChart(
+    region = "All"
+) {
 
-});
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/sales-by-region?region=${encodeURIComponent(region)}`
+            );
+
+        const data =
+            await response.json();
+
+        const labels =
+            Object.keys(data);
+
+        const values =
+            Object.values(data);
+
+        const canvas =
+            document.getElementById(
+                "salesChart"
+            );
+
+        if (
+            window.salesChart
+            instanceof Chart
+        ) {
+
+            window.salesChart.destroy();
+
+        }
+
+        const ctx =
+            canvas.getContext("2d");
+
+        window.salesChart =
+            new Chart(
+                ctx,
+                {
+
+                    type: "bar",
+
+                    data: {
+
+                        labels: labels,
+
+                        datasets: [{
+
+                            label: "Sales",
+
+                            data: values,
+
+                            backgroundColor: [
+                                "#4CAF50",
+                                "#2196F3",
+                                "#FFC107",
+                                "#F44336"
+                            ]
+
+                        }]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        plugins: {
+
+                            legend: {
+
+                                display: true
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Region chart error:",
+            error
+        );
+
+    }
+
+}
+
+
+// ==========================================
+// REGION FILTER
+// ==========================================
+
+document
+    .getElementById("regionFilter")
+    .addEventListener(
+        "change",
+        function () {
+
+            loadRegionChart(
+                this.value
+            );
+
+        }
+    );
+
+
+// ==========================================
+// PROFIT BY CATEGORY
+// ==========================================
 
 async function loadProfitChart() {
 
-    let response = await fetch("http://127.0.0.1:8000/profit-by-category");
+    try {
 
-    let data = await response.json();
+        const response =
+            await fetch(
+                `${API_URL}/profit-by-category`
+            );
 
-    let labels = Object.keys(data);
-    let values = Object.values(data);
+        const data =
+            await response.json();
 
-    let ctx = document.getElementById("profitChart").getContext("2d");
+        const labels =
+            Object.keys(data);
 
-    new Chart(ctx, {
-        type: "pie",
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "Profit",
-                data: values,
-                backgroundColor: [
-                    "#4CAF50",
-                    "#2196F3",
-                    "#FFC107"
-                ]
-            }]
-        },
-        options: {
-            responsive: true
+        const values =
+            Object.values(data);
+
+        const canvas =
+            document.getElementById(
+                "profitChart"
+            );
+
+        if (
+            window.profitChart
+            instanceof Chart
+        ) {
+
+            window.profitChart.destroy();
+
         }
-    });
+
+        const ctx =
+            canvas.getContext("2d");
+
+        window.profitChart =
+            new Chart(
+                ctx,
+                {
+
+                    type: "pie",
+
+                    data: {
+
+                        labels: labels,
+
+                        datasets: [{
+
+                            label: "Profit",
+
+                            data: values,
+
+                            backgroundColor: [
+                                "#4CAF50",
+                                "#2196F3",
+                                "#FFC107"
+                            ]
+
+                        }]
+
+                    },
+
+                    options: {
+
+                        responsive: true
+
+                    }
+
+                }
+            );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Profit chart error:",
+            error
+        );
+
+    }
+
 }
 
-loadProfitChart();
+
+// ==========================================
+// MONTHLY SALES
+// ==========================================
 
 async function loadMonthlySalesChart() {
 
-    let response = await fetch("http://127.0.0.1:8000/monthly-sales");
+    try {
 
-    let data = await response.json();
+        const response =
+            await fetch(
+                `${API_URL}/monthly-sales`
+            );
 
-    let labels = Object.keys(data);
-    let values = Object.values(data);
+        const data =
+            await response.json();
 
-    let ctx = document.getElementById("monthlySalesChart").getContext("2d");
+        const labels =
+            Object.keys(data);
 
-    new Chart(ctx, {
-        type: "line",
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "Monthly Sales",
-                data: values,
-                borderColor: "#2196F3",
-                backgroundColor: "rgba(33,150,243,0.2)",
-                fill: true,
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: true
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+        const values =
+            Object.values(data);
+
+        const canvas =
+            document.getElementById(
+                "monthlySalesChart"
+            );
+
+        if (
+            window.monthlySalesChart
+            instanceof Chart
+        ) {
+
+            window.monthlySalesChart.destroy();
+
         }
-    });
+
+        const ctx =
+            canvas.getContext("2d");
+
+        window.monthlySalesChart =
+            new Chart(
+                ctx,
+                {
+
+                    type: "line",
+
+                    data: {
+
+                        labels: labels,
+
+                        datasets: [{
+
+                            label: "Monthly Sales",
+
+                            data: values,
+
+                            borderColor: "#2196F3",
+
+                            backgroundColor:
+                                "rgba(33,150,243,0.2)",
+
+                            fill: true,
+
+                            tension: 0.4
+
+                        }]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        scales: {
+
+                            y: {
+
+                                beginAtZero: true
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Monthly sales error:",
+            error
+        );
+
+    }
+
 }
+
+
+// ==========================================
+// AI CHATBOT
+// ==========================================
+
+async function askAI() {
+
+    const question =
+        document.getElementById(
+            "question"
+        ).value;
+
+
+    if (question.trim() === "") {
+
+        alert(
+            "Please enter a question."
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "answer"
+    ).innerHTML =
+        "🤖 Thinking...";
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/ask-ai`,
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        question:
+                            question
+
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        document.getElementById(
+            "answer"
+        ).innerHTML =
+            data.answer ||
+            "No answer received.";
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "AI error:",
+            error
+        );
+
+        document.getElementById(
+            "answer"
+        ).innerHTML =
+            "❌ Error connecting to AI.";
+
+    }
+
+}
+
+
+// ==========================================
+// LOGOUT
+// ==========================================
+
+function logout() {
+
+    localStorage.removeItem(
+        "loggedIn"
+    );
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+// ==========================================
+// INITIAL DASHBOARD LOAD
+// ==========================================
+
+loadDashboard();
+
+loadTopProducts();
+
+loadRegionChart();
+
+loadProfitChart();
 
 loadMonthlySalesChart();

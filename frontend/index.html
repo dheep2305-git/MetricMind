@@ -2,108 +2,362 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>MetricMind Dashboard</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
+
+    <!-- ==========================================
+         LOGIN CHECK
+    =========================================== -->
+
+    <script>
+
+        if (localStorage.getItem("loggedIn") !== "true") {
+
+            window.location.href = "login.html";
+
+        }
+
+    </script>
+
+
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
+
     <header>
+
         <h1>📊 MetricMind Dashboard</h1>
 
+
         <div class="filter-container">
-            <label for="regionFilter">Region:</label>
+
+            <label for="regionFilter">
+                Region:
+            </label>
+
 
             <select id="regionFilter">
-                <option value="All">All Regions</option>
-                <option value="Central">Central</option>
-                <option value="East">East</option>
-                <option value="South">South</option>
-                <option value="West">West</option>
+
+                <option value="All">
+                    All Regions
+                </option>
+
+                <option value="Central">
+                    Central
+                </option>
+
+                <option value="East">
+                    East
+                </option>
+
+                <option value="South">
+                    South
+                </option>
+
+                <option value="West">
+                    West
+                </option>
+
             </select>
+
+
+            <!-- LOGOUT -->
+
+            <button
+                type="button"
+                onclick="logout()"
+                style="
+                    margin-left:20px;
+                    padding:10px 18px;
+                    background:#dc3545;
+                    color:white;
+                    border:none;
+                    border-radius:6px;
+                    cursor:pointer;
+                "
+            >
+
+                Logout
+
+            </button>
+
         </div>
+
     </header>
 
-    <!-- Dashboard Cards -->
+
+    <!-- ==========================================
+         DASHBOARD CARDS
+    =========================================== -->
+
     <div class="cards">
 
-        <div class="card">
-            <h2>Total Sales</h2>
-            <p id="sales">₹ --------</p>
-        </div>
+
+        <!-- TOTAL SALES -->
 
         <div class="card">
-            <h2>Total Profit</h2>
-            <p id="profit">₹ --------</p>
+
+            <h2>
+                Total Sales
+            </h2>
+
+            <p id="sales">
+                ₹ --------
+            </p>
+
         </div>
 
+
+        <!-- TOTAL PROFIT -->
+
         <div class="card">
-            <h2>Total Orders</h2>
-            <p id="orders">--------</p>
+
+            <h2>
+                Total Profit
+            </h2>
+
+            <p id="profit">
+                ₹ --------
+            </p>
+
         </div>
+
+
+        <!-- TOTAL ORDERS -->
+
+        <div class="card">
+
+            <h2>
+                Total Orders
+            </h2>
+
+            <p id="orders">
+                --------
+            </p>
+
+        </div>
+
 
     </div>
 
-    <!-- Sales by Region -->
+
+    <!-- ==========================================
+         SALES BY REGION
+    =========================================== -->
+
     <div class="section">
-        <h2>Sales by Region</h2>
+
+        <h2>
+            Sales by Region
+        </h2>
+
 
         <div class="box">
+
             <canvas id="salesChart"></canvas>
+
         </div>
+
     </div>
 
-    <!-- Top Products -->
+
+    <!-- ==========================================
+         TOP PRODUCTS
+    =========================================== -->
+
     <div class="section">
-        <h2>Top Products</h2>
+
+        <h2>
+            Top Products
+        </h2>
+
 
         <div class="box">
+
             <table id="productTable">
 
                 <thead>
+
                     <tr>
-                        <th>Product Name</th>
-                        <th>Sales</th>
+
+                        <th>
+                            Product Name
+                        </th>
+
+                        <th>
+                            Sales
+                        </th>
+
                     </tr>
+
                 </thead>
+
 
                 <tbody>
 
                 </tbody>
 
             </table>
+
         </div>
+
     </div>
 
-    <!-- Profit by Category -->
+
+    <!-- ==========================================
+         PROFIT BY CATEGORY
+    =========================================== -->
+
     <div class="section">
-        <h2>Profit by Category</h2>
+
+        <h2>
+            Profit by Category
+        </h2>
+
 
         <div class="box">
+
             <canvas id="profitChart"></canvas>
+
         </div>
+
     </div>
 
-    <!-- Monthly Sales Trend -->
+
+    <!-- ==========================================
+         MONTHLY SALES
+    =========================================== -->
+
     <div class="section">
-        <h2>Monthly Sales Trend</h2>
+
+        <h2>
+            Monthly Sales Trend
+        </h2>
+
 
         <div class="box">
+
             <canvas id="monthlySalesChart"></canvas>
+
         </div>
+
     </div>
 
-    <!-- Footer -->
+
+    <!-- ==========================================
+         AI CHATBOT
+    =========================================== -->
+
+    <div class="section">
+
+        <h2>
+            🤖 MetricMind AI Assistant
+        </h2>
+
+
+        <div class="box">
+
+            <input
+                type="text"
+                id="question"
+                placeholder="Ask about sales, profit, products, regions..."
+                style="
+                    width:75%;
+                    padding:12px;
+                    font-size:16px;
+                    border-radius:6px;
+                    border:1px solid #ccc;
+                    box-sizing:border-box;
+                "
+            >
+
+
+            <button
+                type="button"
+                onclick="askAI()"
+                style="
+                    padding:12px 20px;
+                    font-size:16px;
+                    background:#4CAF50;
+                    color:white;
+                    border:none;
+                    border-radius:6px;
+                    cursor:pointer;
+                    margin-left:10px;
+                "
+            >
+
+                Ask AI
+
+            </button>
+
+
+            <br>
+            <br>
+
+
+            <div
+                id="answer"
+                style="
+                    background:#f4f4f4;
+                    padding:20px;
+                    border-radius:8px;
+                    min-height:80px;
+                    font-size:16px;
+                    line-height:1.6;
+                "
+            >
+
+                AI response will appear here...
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         FOOTER
+    =========================================== -->
+
     <footer>
-        <p>© 2026 MetricMind | AI-Powered Business Intelligence Dashboard</p>
+
+        <p>
+
+            © 2026 MetricMind |
+            AI-Powered Business Intelligence Dashboard
+
+        </p>
+
     </footer>
 
-    <!-- Scripts -->
+
+    <!-- ==========================================
+         CHART.JS
+    =========================================== -->
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <!-- ==========================================
+         METRICMIND JAVASCRIPT
+    =========================================== -->
+
     <script src="script.js"></script>
+
 
 </body>
 
