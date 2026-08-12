@@ -267,3 +267,15 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 - Added Total Orders metric
 - Added metric descriptions and formulas
 - Connected semantic metrics with chatbot context
+
+# AI - Day 29
+
+### Business Insights
+
+- Added regional performance insights
+- Added category performance insights
+- Added top-product insights
+- Added monthly performance analysis
+- Added highest-performing region detection
+- Added highest-performing category detection
+- Improved chatbot business recommendations
