@@ -232,3 +232,14 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 - Tested product-related questions
 - Validated chatbot responses against dataset values
 - Fixed chatbot response issues
+
+# Frontend - Day 26
+
+### Dashboard Error Handling
+
+- Added API error handling
+- Improved dashboard loading behavior
+- Added handling for missing API responses
+- Prevented invalid values from displaying on dashboard
+- Improved error messages
+- Tested dashboard API failures
