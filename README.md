@@ -193,3 +193,15 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 - Cleared login state using localStorage
 - Redirected users to the login page
 - Tested login and logout flow
+
+# AI - Day 23
+
+### MetricMind AI Chatbot
+
+- Created AI chatbot interface
+- Added question input field
+- Added chatbot answer section
+- Connected chatbot frontend with FastAPI
+- Integrated `/ask-ai` API
+- Connected chatbot with LangChain agent
+- Added Superstore business data to chatbot context
