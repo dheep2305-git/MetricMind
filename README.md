@@ -205,3 +205,17 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 - Integrated `/ask-ai` API
 - Connected chatbot with LangChain agent
 - Added Superstore business data to chatbot context
+
+# AI - Day 24
+
+### Chatbot Business Intelligence Enhancement
+
+- Added total sales and total profit analysis
+- Added total orders calculation
+- Added profit margin calculation
+- Added regional sales and profit analysis
+- Added category sales and profit analysis
+- Added top products analysis
+- Added monthly sales and profit analysis
+- Added business insights to chatbot context
+- Tested chatbot with business questions
