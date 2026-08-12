@@ -243,3 +243,15 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 - Prevented invalid values from displaying on dashboard
 - Improved error messages
 - Tested dashboard API failures
+
+# Backend - Day 27
+
+### Dataset Validation
+
+- Added Superstore dataset validation
+- Checked required columns
+- Added missing-column detection
+- Improved numeric data conversion
+- Handled missing values
+- Improved dataset loading reliability
+- Tested dataset validation
