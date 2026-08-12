@@ -255,3 +255,15 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 - Handled missing values
 - Improved dataset loading reliability
 - Tested dataset validation
+
+# Backend - Day 28
+
+### Semantic Layer Enhancement
+
+- Improved business metric definitions
+- Added Total Sales metric
+- Added Total Profit metric
+- Added Profit Margin metric
+- Added Total Orders metric
+- Added metric descriptions and formulas
+- Connected semantic metrics with chatbot context
