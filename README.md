@@ -183,3 +183,13 @@ MetricMind is an AI-powered Business Intelligence platform that allows users to 
 - Added login button
 - Added login page styling
 - Connected login page to dashboard navigation
+
+# Frontend - Day 22
+
+### Logout Functionality
+
+- Added logout button
+- Implemented logout functionality
+- Cleared login state using localStorage
+- Redirected users to the login page
+- Tested login and logout flow
