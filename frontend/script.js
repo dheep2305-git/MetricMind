@@ -2,8 +2,7 @@
 // API BASE URL
 // ==========================================
 
-const API_URL = "http://127.0.0.1:8000";
-
+const API_URL = "https://metricmind-fpgk.onrender.com";
 
 // ==========================================
 // LOAD DASHBOARD CARDS
