@@ -1,13 +1,22 @@
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
-from langchain_community.llms import Ollama
+from langchain_core.prompts import PromptTemplate
+from langchain_ollama import OllamaLLM
 
 from .prompt import SYSTEM_PROMPT
 
-# Load Ollama Llama 3.2
-llm = Ollama(model="llama3.2")
 
-# Prompt Template
+# ==========================================
+# LOAD OLLAMA LLAMA 3.2
+# ==========================================
+
+llm = OllamaLLM(
+    model="llama3.2"
+)
+
+
+# ==========================================
+# PROMPT TEMPLATE
+# ==========================================
+
 template = """
 {system_prompt}
 
@@ -29,33 +38,39 @@ Instructions:
 Answer:
 """
 
+
+# ==========================================
+# CREATE PROMPT
+# ==========================================
+
 prompt = PromptTemplate(
     input_variables=[
         "system_prompt",
         "metrics",
         "question"
     ],
-    template=template,
+    template=template
 )
 
-# Create LangChain LLM Chain
-chain = LLMChain(
-    llm=llm,
-    prompt=prompt
-)
 
+# ==========================================
+# ASK AGENT
+# ==========================================
 
 def ask_agent(metrics, question):
 
-    # This message proves LangChain is being used
     print("\n====================================")
     print("✅ LangChain Agent Executed")
     print("====================================\n")
 
-    answer = chain.run(
-        system_prompt=SYSTEM_PROMPT,
-        metrics=metrics,
-        question=question
-    )
+    # Connect prompt to LLM
+    chain = prompt | llm
+
+    # Execute the chain
+    answer = chain.invoke({
+        "system_prompt": SYSTEM_PROMPT,
+        "metrics": metrics,
+        "question": question
+    })
 
     return answer
