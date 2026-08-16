@@ -4,6 +4,7 @@
 
 const API_URL = "https://metricmind-fpgk.onrender.com";
 
+
 // ==========================================
 // LOAD DASHBOARD CARDS
 // ==========================================
@@ -19,16 +20,22 @@ async function loadDashboard() {
         const salesResponse =
             await fetch(`${API_URL}/total-sales`);
 
+        if (!salesResponse.ok) {
+            throw new Error(
+                `Total sales request failed: ${salesResponse.status}`
+            );
+        }
+
         const salesData =
             await salesResponse.json();
 
         if (salesData.total_sales !== undefined) {
 
             document.getElementById("sales").innerHTML =
-                "₹ " + Number(
+                "₹ " +
+                Number(
                     salesData.total_sales
                 ).toFixed(2);
-
         }
 
 
@@ -39,16 +46,22 @@ async function loadDashboard() {
         const profitResponse =
             await fetch(`${API_URL}/total-profit`);
 
+        if (!profitResponse.ok) {
+            throw new Error(
+                `Total profit request failed: ${profitResponse.status}`
+            );
+        }
+
         const profitData =
             await profitResponse.json();
 
         if (profitData.total_profit !== undefined) {
 
             document.getElementById("profit").innerHTML =
-                "₹ " + Number(
+                "₹ " +
+                Number(
                     profitData.total_profit
                 ).toFixed(2);
-
         }
 
 
@@ -59,6 +72,12 @@ async function loadDashboard() {
         const ordersResponse =
             await fetch(`${API_URL}/total-orders`);
 
+        if (!ordersResponse.ok) {
+            throw new Error(
+                `Total orders request failed: ${ordersResponse.status}`
+            );
+        }
+
         const ordersData =
             await ordersResponse.json();
 
@@ -66,7 +85,6 @@ async function loadDashboard() {
 
             document.getElementById("orders").innerHTML =
                 ordersData.total_orders;
-
         }
 
     }
@@ -96,6 +114,12 @@ async function loadTopProducts() {
                 `${API_URL}/top-products`
             );
 
+        if (!response.ok) {
+            throw new Error(
+                `Top products request failed: ${response.status}`
+            );
+        }
+
         const data =
             await response.json();
 
@@ -104,6 +128,10 @@ async function loadTopProducts() {
                 "#productTable tbody"
             );
 
+        if (!table) {
+            return;
+        }
+
         table.innerHTML = "";
 
         for (const product in data) {
@@ -111,6 +139,7 @@ async function loadTopProducts() {
             table.innerHTML += `
                 <tr>
                     <td>${product}</td>
+
                     <td>
                         ₹ ${Number(
                             data[product]
@@ -118,7 +147,6 @@ async function loadTopProducts() {
                     </td>
                 </tr>
             `;
-
         }
 
     }
@@ -150,6 +178,12 @@ async function loadRegionChart(
                 `${API_URL}/sales-by-region?region=${encodeURIComponent(region)}`
             );
 
+        if (!response.ok) {
+            throw new Error(
+                `Region request failed: ${response.status}`
+            );
+        }
+
         const data =
             await response.json();
 
@@ -164,13 +198,16 @@ async function loadRegionChart(
                 "salesChart"
             );
 
+        if (!canvas) {
+            return;
+        }
+
         if (
             window.salesChart
             instanceof Chart
         ) {
 
             window.salesChart.destroy();
-
         }
 
         const ctx =
@@ -180,28 +217,28 @@ async function loadRegionChart(
             new Chart(
                 ctx,
                 {
-
                     type: "bar",
 
                     data: {
 
                         labels: labels,
 
-                        datasets: [{
+                        datasets: [
 
-                            label: "Sales",
+                            {
+                                label: "Sales",
 
-                            data: values,
+                                data: values,
 
-                            backgroundColor: [
-                                "#4CAF50",
-                                "#2196F3",
-                                "#FFC107",
-                                "#F44336"
-                            ]
+                                backgroundColor: [
+                                    "#4CAF50",
+                                    "#2196F3",
+                                    "#FFC107",
+                                    "#F44336"
+                                ]
+                            }
 
-                        }]
-
+                        ]
                     },
 
                     options: {
@@ -211,15 +248,10 @@ async function loadRegionChart(
                         plugins: {
 
                             legend: {
-
                                 display: true
-
                             }
-
                         }
-
                     }
-
                 }
             );
 
@@ -241,9 +273,14 @@ async function loadRegionChart(
 // REGION FILTER
 // ==========================================
 
-document
-    .getElementById("regionFilter")
-    .addEventListener(
+const regionFilter =
+    document.getElementById(
+        "regionFilter"
+    );
+
+if (regionFilter) {
+
+    regionFilter.addEventListener(
         "change",
         function () {
 
@@ -253,6 +290,7 @@ document
 
         }
     );
+}
 
 
 // ==========================================
@@ -268,6 +306,12 @@ async function loadProfitChart() {
                 `${API_URL}/profit-by-category`
             );
 
+        if (!response.ok) {
+            throw new Error(
+                `Profit category request failed: ${response.status}`
+            );
+        }
+
         const data =
             await response.json();
 
@@ -282,13 +326,16 @@ async function loadProfitChart() {
                 "profitChart"
             );
 
+        if (!canvas) {
+            return;
+        }
+
         if (
             window.profitChart
             instanceof Chart
         ) {
 
             window.profitChart.destroy();
-
         }
 
         const ctx =
@@ -298,27 +345,27 @@ async function loadProfitChart() {
             new Chart(
                 ctx,
                 {
-
                     type: "pie",
 
                     data: {
 
                         labels: labels,
 
-                        datasets: [{
+                        datasets: [
 
-                            label: "Profit",
+                            {
+                                label: "Profit",
 
-                            data: values,
+                                data: values,
 
-                            backgroundColor: [
-                                "#4CAF50",
-                                "#2196F3",
-                                "#FFC107"
-                            ]
+                                backgroundColor: [
+                                    "#4CAF50",
+                                    "#2196F3",
+                                    "#FFC107"
+                                ]
+                            }
 
-                        }]
-
+                        ]
                     },
 
                     options: {
@@ -326,7 +373,6 @@ async function loadProfitChart() {
                         responsive: true
 
                     }
-
                 }
             );
 
@@ -357,6 +403,12 @@ async function loadMonthlySalesChart() {
                 `${API_URL}/monthly-sales`
             );
 
+        if (!response.ok) {
+            throw new Error(
+                `Monthly sales request failed: ${response.status}`
+            );
+        }
+
         const data =
             await response.json();
 
@@ -371,13 +423,16 @@ async function loadMonthlySalesChart() {
                 "monthlySalesChart"
             );
 
+        if (!canvas) {
+            return;
+        }
+
         if (
             window.monthlySalesChart
             instanceof Chart
         ) {
 
             window.monthlySalesChart.destroy();
-
         }
 
         const ctx =
@@ -387,30 +442,30 @@ async function loadMonthlySalesChart() {
             new Chart(
                 ctx,
                 {
-
                     type: "line",
 
                     data: {
 
                         labels: labels,
 
-                        datasets: [{
+                        datasets: [
 
-                            label: "Monthly Sales",
+                            {
+                                label: "Monthly Sales",
 
-                            data: values,
+                                data: values,
 
-                            borderColor: "#2196F3",
+                                borderColor: "#2196F3",
 
-                            backgroundColor:
-                                "rgba(33,150,243,0.2)",
+                                backgroundColor:
+                                    "rgba(33,150,243,0.2)",
 
-                            fill: true,
+                                fill: true,
 
-                            tension: 0.4
+                                tension: 0.4
+                            }
 
-                        }]
-
+                        ]
                     },
 
                     options: {
@@ -424,11 +479,8 @@ async function loadMonthlySalesChart() {
                                 beginAtZero: true
 
                             }
-
                         }
-
                     }
-
                 }
             );
 
@@ -458,16 +510,25 @@ async function askAI() {
         ).value;
 
 
-    if (question.trim() === "") {
+    // --------------------------------------
+    // Check empty question
+    // --------------------------------------
+
+    if (
+        question.trim() === ""
+    ) {
 
         alert(
             "Please enter a question."
         );
 
         return;
-
     }
 
+
+    // --------------------------------------
+    // Show loading message
+    // --------------------------------------
 
     document.getElementById(
         "answer"
@@ -476,6 +537,10 @@ async function askAI() {
 
 
     try {
+
+        // --------------------------------------
+        // Send question to Render backend
+        // --------------------------------------
 
         const response =
             await fetch(
@@ -497,14 +562,36 @@ async function askAI() {
                             question
 
                     })
-
                 }
             );
 
 
+        // --------------------------------------
+        // Check HTTP response
+        // --------------------------------------
+
+        if (!response.ok) {
+
+            const errorText =
+                await response.text();
+
+            throw new Error(
+                `Backend error ${response.status}: ${errorText}`
+            );
+        }
+
+
+        // --------------------------------------
+        // Read response
+        // --------------------------------------
+
         const data =
             await response.json();
 
+
+        // --------------------------------------
+        // Display AI answer
+        // --------------------------------------
 
         document.getElementById(
             "answer"
@@ -514,6 +601,7 @@ async function askAI() {
 
     }
 
+
     catch (error) {
 
         console.error(
@@ -521,10 +609,11 @@ async function askAI() {
             error
         );
 
+
         document.getElementById(
             "answer"
         ).innerHTML =
-            "❌ Error connecting to AI.";
+            "❌ Error connecting to AI. Please try again.";
 
     }
 
@@ -543,7 +632,6 @@ function logout() {
 
     window.location.href =
         "login.html";
-
 }
 
 
