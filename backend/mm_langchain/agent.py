@@ -1,4 +1,3 @@
- ```python
 import os
 
 from langchain_core.prompts import PromptTemplate
@@ -81,17 +80,14 @@ def ask_agent(metrics, question):
 
     try:
 
-        # Connect prompt with Groq LLM
         chain = prompt | llm
 
-        # Execute the chain
         response = chain.invoke({
             "system_prompt": SYSTEM_PROMPT,
             "metrics": metrics,
             "question": question
         })
 
-        # ChatGroq returns an AIMessage
         return response.content
 
     except Exception as e:
@@ -99,4 +95,3 @@ def ask_agent(metrics, question):
         print("❌ Groq Agent Error:", e)
 
         return f"Unable to process your question: {str(e)}"
-```
